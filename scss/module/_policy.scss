@@ -1,0 +1,15 @@
+@use "../forward" as *;
+
+.policy {
+  h2 {
+    margin-bottom: 18px;
+    padding-bottom: 15px;
+    font-size: rems(18px);
+    border-bottom: 1px solid $color-border;
+    @include font(base, medium);
+  }
+
+  p {
+    margin-bottom: 60px;
+  }
+}

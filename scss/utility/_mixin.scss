@@ -1,0 +1,264 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// 引き継いだmixin start
+
+$sp-width: 640px !default;
+$tab-width: 834px !default;
+
+@mixin sp {
+  @media screen and (max-width: $sp-width) {
+    @content;
+  }
+}
+
+@mixin tab {
+  @media screen and (max-width: $tab-width) {
+    @content;
+  }
+}
+
+@mixin bp1000 {
+  @media screen and (max-width: 1000px) {
+    @content;
+  }
+}
+
+@mixin bp1200 {
+  @media screen and (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin bp1400 {
+  @media screen and (max-width: 1400px) {
+    @content;
+  }
+}
+
+@mixin bp1600 {
+  @media screen and (max-width: 1600px) {
+    @content;
+  }
+}
+
+@mixin bg100 {
+  margin-right: calc(((100vw - 100%) / 2) * -1) !important;
+  margin-left: calc(((100vw - 100%) / 2) * -1) !important;
+}
+
+// @mixin font-size($XX, $YY, $ZZ) {
+// 	font-size: calc(#{$XX}rem + ((1vw - #{$YY}px) * #{$ZZ}));
+// }
+
+@mixin flex($display: flex, $justify: space-between, $width: 3, $space: 1%) {
+  display: $display;
+  justify-content: $justify;
+  flex-wrap: wrap;
+
+  &._top {
+    align-items: flex-start;
+  }
+
+  &._center {
+    align-items: center;
+  }
+
+  @if $width in 3 {
+    &:before {
+      width: calc(100% / #{$width} - #{$space});
+      content: "";
+      order: 1;
+    }
+  }
+
+  @if $width in 4 {
+    &:before {
+      width: calc(100% / #{$width} - #{$space});
+      content: "";
+      order: 1;
+    }
+
+    &:after {
+      width: calc(100% / #{$width} - #{$space});
+      content: "";
+      order: 2;
+    }
+  }
+
+  .box {
+    width: calc(100% / #{$width} - #{$space});
+    margin-bottom: 2%;
+
+    @include tab {
+      @at-root {
+        ._tabwidth1 {
+          .box {
+            width: 100%;
+          }
+        }
+
+        ._tabwidth2 {
+          .box {
+            width: calc(100% / 2 - #{$space});
+          }
+        }
+
+        ._tabwidth3 {
+          .box {
+            width: calc(100% / 3 - #{$space});
+          }
+        }
+      }
+    }
+
+    @include sp {
+      @at-root {
+        ._spwidth1 {
+          .box {
+            width: 100%;
+          }
+        }
+
+        ._spwidth2 {
+          .box {
+            width: calc(100% / 2 - #{$space});
+          }
+        }
+
+        ._spwidth3 {
+          .box {
+            width: calc(100% / 3 - #{$space});
+          }
+        }
+      }
+    }
+
+    img {
+      width: 100% !important;
+    }
+  }
+}
+
+@mixin square {
+  &._100 {
+    .square-inner {
+      &:before {
+        padding-top: 100%;
+      }
+    }
+  }
+
+  &._75 {
+    .square-inner {
+      &:before {
+        padding-top: 75%;
+      }
+    }
+  }
+
+  &._66 {
+    .square-inner {
+      &:before {
+        padding-top: 66%;
+      }
+    }
+  }
+
+  td {
+    .square-inner {
+      display: block;
+      position: relative;
+
+      &:before {
+        position: relative;
+        z-index: 1;
+        content: "";
+        display: block;
+        width: 100% !important;
+      }
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        object-fit: cover;
+        font-family: "object-fit:cover;";
+        width: 100% !important;
+        height: 100% !important;
+      }
+    }
+  }
+
+  & > .square-inner {
+    display: block;
+    position: relative;
+
+    .itext {
+      float: none !important;
+      margin-right: 0 !important;
+
+      img {
+        float: none !important;
+        margin-right: 0 !important;
+      }
+    }
+
+    &:before {
+      position: relative;
+      z-index: 1;
+      content: "";
+      display: block;
+      width: 100% !important;
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      object-fit: cover;
+      font-family: "object-fit:cover;";
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
+
+  & > .box {
+    .itext {
+      float: none !important;
+      margin-right: 0 !important;
+
+      img {
+        float: none !important;
+        margin-right: 0 !important;
+      }
+    }
+
+    .square-inner {
+      display: block;
+      position: relative;
+
+      &:before {
+        position: relative;
+        z-index: 1;
+        content: "";
+        display: block;
+        width: 100% !important;
+      }
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        object-fit: cover;
+        font-family: "object-fit:cover;";
+        width: 100% !important;
+        height: 100% !important;
+      }
+    }
+  }
+}
+
+// 引き継いだmixin ends

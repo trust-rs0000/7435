@@ -1,0 +1,24 @@
+@use "../forward" as *;
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+
+  &__li {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__divide {
+    margin-right: 10px;
+    font-size: rems(14px);
+  }
+
+  &__link {
+    font-size: rems(14px);
+    @include font(base, regular);
+  }
+}

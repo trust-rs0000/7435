@@ -1,0 +1,15 @@
+// スクロールバーのデフォルト変更
+@mixin scroll-bar($width: 5px, $cThumb: #dadada) {
+  &::-webkit-scrollbar {
+    width: $width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $cThumb;
+    border-radius: 5px;
+  }
+}

@@ -1,0 +1,110 @@
+@use "../forward" as *;
+
+%button-reboot {
+  display: inline-block;
+  max-width: 100%;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1;
+
+  * {
+    font-size: rems(16px);
+  }
+}
+
+%button-reboot-hover {
+  transition: $transition-duration;
+
+  &:hover {
+    opacity: 0.7;
+    transition: $transition-duration;
+  }
+}
+
+.button-arrow {
+  @extend %button-reboot;
+
+  min-width: 250px;
+  padding: 20px 40px;
+  background-color: $color-button-bg;
+  font-size: rems(16px);
+  @include font(base, bold);
+  line-height: 1;
+  position: relative;
+  z-index: 0;
+
+  &:link,
+  &:visited {
+    color: $color-button-text;
+  }
+
+  &:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: $color-button-hover-bg;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scale(0, 1);
+    transform-origin: left top;
+    transition: $transition-duration;
+    z-index: -1;
+  }
+
+  &:hover {
+    &:link,
+    &:visited {
+      color: $color-button-hover-text;
+      opacity: 1;
+    }
+
+    &:before {
+      transform: scale(1, 1);
+    }
+  }
+
+  &:after {
+    @include font-awesome("\f061");
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translate(0, -50%);
+  }
+}
+
+.button-tel {
+  @extend %button-reboot;
+  @extend %button-reboot-hover;
+
+  padding: 18px 20px;
+  background-color: $color-button-mail-bg;
+  @include font(main, bold);
+  font-size: rems(18px);
+  transition: $transition-duration;
+
+  &:link,
+  &:visited {
+    color: $color-button-tel-text;
+  }
+
+  i {
+    transform: rotate(-45deg);
+    position: relative;
+    top: -2px;
+  }
+}
+
+.button-mail {
+  @extend %button-reboot;
+  @extend %button-reboot-hover;
+
+  padding: 19px 20px 18px;
+  background-color: $color-button-mail-bg;
+  @include font(base, bold);
+
+  &:link,
+  &:visited {
+    color: $color-button-mail-text;
+  }
+}

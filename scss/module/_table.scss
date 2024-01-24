@@ -1,0 +1,17 @@
+@use "../forward" as *;
+
+%tbl-reboot {
+  tr > td {
+    padding: 0 !important;
+    border: none;
+  }
+}
+
+.tbl {
+}
+
+.tbl-scroll {
+  table {
+    table-layout: unset;
+  }
+}

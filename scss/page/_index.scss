@@ -1,0 +1,76 @@
+@use "../forward" as *;
+
+.about {
+  &__inner {
+    display: flex;
+    align-items: center;
+
+    @include media-max(tab) {
+      display: block;
+    }
+  }
+
+  &__wrapper {
+    margin-right: 40px;
+
+    @include media-max(tab) {
+      margin-right: 0;
+      margin-bottom: 40px;
+    }
+  }
+
+  &__text {
+    div {
+      @include font(base, medium);
+      line-height: 2;
+    }
+  }
+}
+
+.service {
+  &__content {
+    justify-content: center;
+  }
+}
+
+.service-content {
+  &__link {
+    display: block;
+    padding: 70px 20px;
+    background-color: $color-main;
+    text-align: center;
+    text-decoration: none;
+
+    &:link,
+    &:visited {
+      color: white;
+    }
+  }
+
+  &__image {
+    margin-bottom: 40px;
+  }
+
+  &__text {
+    @include font(base, bold);
+    font-size: rems(20px);
+    line-height: 1;
+  }
+}
+
+.recruit {
+  &__wrapper {
+    padding: 80px 20px;
+    background-color: rgba(white, 0.9);
+
+    @include media-max(tab) {
+      padding: 40px 20px;
+    }
+  }
+
+  &__text {
+    div {
+      @include font(base, medium);
+    }
+  }
+}

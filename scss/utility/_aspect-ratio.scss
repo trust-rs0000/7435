@@ -1,0 +1,28 @@
+@use "sass:math" as *;
+
+// アスペクト比
+@mixin aspect-ratio($width: 4, $height: 3) {
+  position: relative;
+  display: block;
+
+  &:has(a) {
+    display: block;
+  }
+
+  &:before {
+    content: "";
+    display: block;
+    padding-top: percentage(div($height, $width));
+    text-align: center;
+  }
+
+  & > :first-child {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}

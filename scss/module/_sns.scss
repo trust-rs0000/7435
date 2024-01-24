@@ -1,0 +1,126 @@
+@use "../forward" as *;
+
+// snsのリセット
+%sns-reboot {
+  a {
+    background-color: aliceblue;
+  }
+
+  .sns_list {
+    border: none;
+
+    &__list {
+      display: block;
+      border-bottom: none;
+      border: none;
+    }
+
+    & > div {
+      border-bottom: none;
+    }
+
+    .sns_photo {
+      width: 100%;
+      padding: 0;
+
+      a {
+        display: block;
+      }
+    }
+
+    .sns_text {
+      width: 100%;
+      padding: 0;
+      font-size: rems(16px);
+
+      .caption {
+        word-break: break-all;
+      }
+
+      ul {
+        display: none;
+      }
+    }
+  }
+}
+
+.sns {
+  @extend %sns-reboot;
+}
+
+.sns-gallery {
+  @extend %sns-reboot;
+
+  --gutter-y: 60px;
+
+  .sns_list {
+    & > div {
+      display: block;
+    }
+
+    .sns_photo {
+      margin-bottom: 15px;
+
+      & > a {
+        @include aspect-ratio(1, 1);
+      }
+
+      img {
+        object-fit: cover;
+      }
+    }
+
+    .sns_date {
+      margin-bottom: 5px;
+      color: $color-main;
+      font-size: rems(14px);
+      @include font(main, medium);
+    }
+
+    .sns_text {
+      font-size: rems(14px);
+    }
+  }
+}
+
+.sns-slider {
+  @extend %sns-reboot;
+
+  .sns_list {
+    display: block;
+
+    .sns_photo {
+      margin-bottom: 20px;
+
+      & > a {
+        @include aspect-ratio(4, 3);
+      }
+
+      img {
+        object-fit: cover;
+      }
+    }
+
+    .sns_text {
+      .sns_date {
+        display: none;
+      }
+    }
+  }
+
+  .slick-list {
+    display: block;
+  }
+
+  .slick-track {
+    display: flex;
+  }
+
+  .slick-slide {
+    height: auto !important;
+    margin-right: 20px;
+    margin-left: 20px;
+    padding: 30px;
+    background-color: #f5f6fa;
+  }
+}

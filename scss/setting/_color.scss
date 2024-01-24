@@ -1,0 +1,57 @@
+// color-setting
+$color-base: white;
+$color-main: #253661;
+$color-accent: #ffe900;
+$color-text: #000000;
+$color-warn: red;
+$color-custom-1: #ededed;
+$color-custom-2: #cc0000;
+
+// 全体的なデフォルトボーダー
+$color-border: #dddddd;
+
+$color-hamburger: white;
+
+$color-header-bg: white;
+$color-header-bg-drawer: $color-main;
+$color-header-bg-scroll: white;
+
+$color-header-nav-link: $color-main;
+$color-header-nav-link-drawer: $color-main;
+$color-header-nav-bg: white;
+
+$color-footer-bg: $color-custom-1;
+
+$color-footer-nav-link: $color-text;
+
+$color-dropdown-bg: white;
+$color-dropdown-border: rgb(235, 235, 235);
+$color-dropdown-nav-link: #333;
+$color-dropdown-nav-link-drawer: #333;
+
+$color-button-text: $color-text;
+$color-button-hover-text: white;
+$color-button-bg: $color-accent;
+$color-button-hover-bg: $color-main;
+
+$color-button-tel-bg: $color-main;
+$color-button-tel-text: white;
+$color-button-mail-bg: $color-main;
+$color-button-mail-text: white;
+
+// フォーム
+$color-form: $color-border;
+
+// ブログ
+$color-blog-category-label-bg: $color-accent;
+$color-blog-category-label-text: $color-text;
+
+// ブログ用見出し
+$color-blog-heading-bg: #f5f5f5;
+
+// ブログカレンダー
+$color-blog-calendar-open-bg: #ffffff;
+$color-blog-calendar-close-bg: #efefef;
+$color-blog-calendar-holiday-bg: #ffffff;
+$color-blog-calendar-other-bg: #f9f9f9;
+$color-calendar-hover: white;

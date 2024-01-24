@@ -1,0 +1,1410 @@
+@use "../forward" as *;
+
+// 例のごとくよく分からないクラスのつけ方されているので、注意。
+// >>> 役割の違うモジュールに同じクラスが付いていたり
+
+// BXIのショッピング設定次第でコンテンツがあったり、無かったりするので、基本的にmarginは上方向につけると吉
+
+// ショッピングページ一覧
+// /shop
+// /shop/detail.html?category=&item_number=1
+// /shop/?tag=テストテスト
+// /shop/?category=%231&keyword=&tag=テストテスト&order=index&page=1
+// /shop/purchase_cart.html
+// /shop/purchase_payment.html
+// /customer/purchase_entry.html?mode=purchase
+// /shop/purchase_confirm.html
+// /shop/purchase_complete.html
+
+$color-text: $color-text;
+$color-border: #ebebeb;
+$color-form: $color-form;
+$color-negative: #aaaaaa;
+$color-price: #cb3d3d;
+$color-purchase: $color-accent;
+
+@mixin inner() {
+  max-width: 700px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@mixin field() {
+  padding: 10px 15px;
+  background-color: $color-form;
+  font-size: unset;
+  border-radius: 0;
+  border: none;
+  line-height: 1;
+
+  @content;
+}
+
+@mixin page-title {
+  margin: 0;
+  margin-top: 70px;
+  margin-bottom: 40px;
+  color: $color-text;
+  @include font(base, medium);
+  font-size: rems(24px);
+  border-bottom: none;
+  line-height: 1;
+}
+
+@mixin shop-normal-button($color: $color-text, $bgColor: $color-form) {
+  min-width: max-content;
+  height: auto;
+  padding: 15px 20px;
+  background: unset;
+  background-position: unset;
+  background-size: unset;
+  color: $color;
+  background-color: $bgColor;
+  font-size: unset;
+  border: none;
+  border-radius: 0;
+  @include font(base, medium);
+  line-height: 1;
+  text-indent: unset;
+}
+
+#is-shop {
+  #col_main {
+    margin-bottom: 140px;
+  }
+}
+
+// エラー start
+div.error {
+  margin-top: 70px;
+  padding: 10px 20px;
+  background-color: $color-form;
+}
+// エラー end
+
+// 検索欄 start
+%shop-search {
+  display: flex;
+  margin-top: 0;
+
+  @include media-max(tab) {
+    display: block;
+  }
+
+  &:last-child {
+    justify-content: flex-end;
+    margin-top: 70px;
+  }
+}
+
+#is-shop {
+  .search {
+    @extend %shop-search;
+  }
+}
+// 検索欄 end
+
+// カテゴリー & 検索窓 start
+%shop-keyword {
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  float: none;
+
+  @include media-max(sp) {
+    display: block;
+  }
+}
+
+#is-shop {
+  #keyword {
+    @extend %shop-keyword;
+
+    .select {
+      margin-right: 10px;
+
+      @include media-max(sp) {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+// カテゴリー & 検索窓 end
+
+// セレクトボタン start
+%shop-select {
+  width: auto;
+  min-width: max-content;
+  position: relative;
+
+  &::before {
+    content: "\f107";
+    font: var(--fa-font-solid);
+    pointer-events: none;
+    line-height: 1;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translate(0, -50%);
+    z-index: 1;
+  }
+
+  &:after {
+    content: none;
+  }
+
+  select {
+    display: inline-block;
+    height: 100%;
+    font-size: rems(14px);
+    text-indent: unset;
+
+    @include field {
+      padding: 15px 40px 15px 20px;
+    }
+  }
+}
+
+#is-shop {
+  .select {
+    @extend %shop-select;
+  }
+}
+
+// セレクトボタン end
+
+// 検索窓 start
+%shop-search-text {
+  position: relative;
+  z-index: 0;
+
+  input[type="text"] {
+    @include field {
+      padding: 15px 40px 15px 20px;
+    }
+  }
+
+  button {
+    width: auto;
+    height: auto;
+    background: unset;
+    background-size: unset;
+    background-position: unset;
+    text-indent: unset;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translate(0, -50%);
+
+    &:before {
+      @include font-awesome("\f002");
+      margin-right: 3px;
+    }
+  }
+}
+
+#is-shop {
+  .text {
+    @extend %shop-search-text;
+  }
+}
+// 検索窓 end
+
+// ページャー start
+%shop-pager {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: auto;
+  margin-left: 60px;
+  float: none;
+
+  @include media-max(tab) {
+    margin-left: 0;
+  }
+
+  .select {
+    float: none;
+  }
+
+  .prev,
+  .next {
+    background-image: none;
+    font-size: 0;
+
+    &::before {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      padding: 10px;
+      border-radius: 30px;
+      background-color: $color-form;
+      font-size: rems(16px) !important;
+    }
+  }
+
+  .prev {
+    margin-right: 10px;
+    &:before {
+      @include font-awesome("\f104");
+    }
+  }
+
+  .next {
+    &:before {
+      @include font-awesome("\f105");
+    }
+  }
+
+  & > a {
+    margin-left: 0;
+    width: auto;
+    height: auto;
+    border: none;
+    border-radius: 0;
+    background-repeat: unset;
+    background-position: unset;
+    text-indent: unset;
+    float: none;
+  }
+
+  .off {
+    background-color: unset;
+  }
+}
+
+#is-shop {
+  .pager {
+    @extend %shop-pager;
+
+    .select {
+      margin-right: 20px;
+    }
+  }
+}
+// ページャー end
+
+// オーダー start
+%shop-order {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 70px;
+  margin-bottom: 70px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid $color-border;
+
+  &:after {
+    content: none;
+  }
+
+  & > p {
+    font-size: rems(14px);
+    float: none;
+    line-height: 1;
+  }
+
+  & > ul {
+    flex-wrap: wrap;
+    margin-bottom: -10px;
+    float: none;
+  }
+
+  & > ul > li {
+    margin-top: 0;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    margin-left: 0;
+  }
+
+  & > ul > li > a {
+    font-size: rems(14px);
+  }
+}
+
+#is-shop {
+  .order {
+    @extend %shop-order;
+  }
+}
+// オーダー end
+
+// /shop/detail.html?category=&item_number=1
+// アイテム(一覧) start
+%shop-items {
+  margin-top: 0;
+  margin-bottom: 140px;
+  margin-left: 0;
+
+  & > article {
+    align-items: flex-start;
+    width: auto;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+  }
+
+  .photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: none !important;
+    @include aspect-ratio(4, 3);
+
+    & > img {
+      display: block;
+    }
+  }
+
+  .name {
+    margin-bottom: 10px;
+    padding-top: 0;
+    @include font(base, medium);
+    font-size: rems(18px);
+  }
+
+  .summary {
+    margin-bottom: 10px;
+    padding-top: 0;
+    font-size: rems(14px);
+    text-align: left;
+  }
+
+  .price {
+    width: 100%;
+    margin-top: auto;
+    padding-top: 0;
+    @include font(base, medium);
+    font-size: rems(18px);
+    text-align: right;
+  }
+}
+
+#is-shop {
+  .items {
+    @extend %shop-items;
+
+    $margin: 40px; // 余白
+    $cols: 4; // 列数
+
+    margin-bottom: $margin * -2;
+
+    & > article {
+      flex: 0 0 calc((100% - ($margin * ($cols - 1))) / $cols);
+      margin-right: $margin;
+      margin-bottom: $margin * 2;
+
+      @include media-max(bp1200) {
+        flex: 0 0 calc((100% - ($margin * 2)) / 3);
+      }
+
+      @include media-max(tab) {
+        flex: 0 0 calc((100% - (($margin / 2) * 1)) / 2);
+        margin-right: calc($margin / 2);
+      }
+
+      @include media-max(sp) {
+        flex: 0 0 100%;
+        max-width: 400px;
+        margin-right: auto !important;
+        margin-left: auto;
+      }
+
+      &:nth-child(#{$cols}n) {
+        margin-right: 0;
+
+        @include media-max(bp1200) {
+          margin-right: $margin;
+        }
+      }
+
+      &:nth-child(3n) {
+        @include media-max(bp1200) {
+          margin-right: 0;
+        }
+
+        @include media-max(tab) {
+          margin-right: 20px;
+        }
+      }
+
+      &:nth-child(2n) {
+        @include media-max(tab) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+// アイテム(一覧) end
+
+// カテゴリーぱんくず start
+%shop-crumb {
+  margin-top: 70px;
+
+  & > ul {
+    display: flex;
+  }
+
+  & > ul > li {
+    margin-right: 0;
+    line-height: 1;
+    float: none;
+
+    &:after {
+      @include font-awesome("\f105");
+      margin-right: 0;
+      margin-left: 10px;
+      margin-right: 10px;
+      color: $color-text;
+      font-size: rems(14px);
+    }
+  }
+
+  & > ul > li > a {
+    font-size: rems(14px);
+    line-height: 1;
+    float: none;
+  }
+}
+
+#is-shop {
+  .crumb {
+    @extend %shop-crumb;
+  }
+}
+// カテゴリーぱんくず end
+
+// アイテム 詳細 start
+%shop-item {
+  margin-top: 70px;
+
+  @include media-max(tab) {
+    display: block;
+    max-width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+#is-shop {
+  .item {
+    @extend %shop-item;
+  }
+}
+// アイテム 詳細 end
+
+// アイテム 詳細 写真 start
+%shop-item-photo {
+  display: block;
+  flex: 0 0 40%;
+  margin-right: 40px;
+  margin-left: 0;
+
+  @include media-max(tab) {
+    margin-right: 0;
+    margin-bottom: 60px;
+  }
+
+  .large {
+    margin-bottom: 20px;
+    margin-left: 0;
+  }
+
+  .small {
+    min-width: 0;
+    max-width: 100%;
+
+    & > ul > li {
+      flex-basis: unset;
+      flex: 1 0 0;
+      margin-bottom: 0;
+      margin-left: 0;
+      margin-right: 5px;
+      @include aspect-ratio(4, 3);
+
+      & > img {
+        object-fit: contain;
+      }
+    }
+  }
+}
+
+#is-shop {
+  .photo {
+    @extend %shop-item-photo;
+  }
+}
+// アイテム 詳細 写真 end
+
+// アイテム 詳細 説明 start
+%shop-item-detail {
+  display: block;
+  flex: 1 0 0;
+  min-width: 0;
+  max-width: 100%;
+  margin-left: 0;
+  font-size: rems(16px);
+
+  & > h2 {
+    margin-bottom: 30px;
+    @include font(base, medium);
+    font-size: rems(24px);
+    line-height: 1.6;
+
+    @include media-max(tab) {
+      font-size: rems(20px);
+    }
+
+    & > span {
+      display: none;
+    }
+  }
+
+  // タグ
+  & > ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0;
+    margin-bottom: 40px;
+  }
+
+  & > ul > li {
+    float: none;
+    margin-bottom: 10px;
+  }
+
+  & > ul > li > a {
+    padding: 8px 15px;
+    background-color: $color-form;
+    font-size: rems(12px);
+    border: none;
+    border-radius: 0;
+    text-decoration: none;
+
+    &:link,
+    &:visited {
+      color: $color-text;
+    }
+  }
+
+  .struct {
+    display: block;
+    margin-top: 0;
+  }
+
+  .sku {
+    width: 100%;
+    margin-bottom: 40px;
+    text-align: right;
+  }
+
+  .price {
+    font-size: rems(20px);
+
+    & > label {
+      font-size: rems(12px);
+    }
+  }
+
+  // オプション
+  .item_option {
+    width: 100%;
+    margin-left: auto;
+  }
+
+  .item_option > form > dl,
+  .count {
+    display: block;
+    margin-bottom: 20px;
+    border: none;
+  }
+
+  .count {
+    display: block;
+    margin-bottom: 40px;
+    border: none;
+  }
+
+  .item_option > form > dl > dt,
+  .count > dt {
+    display: block;
+    min-height: 0;
+    margin-bottom: 5px;
+    padding: 0;
+    background: unset;
+    font-size: rems(14px);
+  }
+
+  .item_option > form > dl > dd,
+  .count > dd {
+    padding: 0;
+  }
+
+  button.addcart {
+    margin-bottom: 20px;
+  }
+
+  .addcart > a {
+    margin-top: 0;
+    font-size: rems(14px);
+    text-align: end;
+  }
+
+  .detail {
+    padding: 30px 20px;
+    background-color: #fafafa;
+    font-size: rems(16px);
+  }
+
+  @at-root {
+    .detail2 {
+      padding: 30px 20px;
+      background-color: #fafafa;
+      font-size: rems(16px);
+
+      @include media-max(tab) {
+        max-width: 500px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+  }
+}
+
+#is-shop {
+  .item_view {
+    @extend %shop-item-detail;
+  }
+}
+// アイテム 詳細 説明 end
+
+// カートに入れるボタン start
+#is-shop {
+  button.addcart {
+    @include shop-normal-button(white, $color-purchase);
+  }
+}
+// カートに入れるボタン end
+
+// アイテム 詳細 スクロール start
+%shop-item-scroll {
+  margin-bottom: 140px;
+
+  h3 {
+    display: none;
+  }
+
+  .flip {
+    width: 100%;
+  }
+
+  .flip > ul > li {
+    width: auto;
+    height: auto;
+    margin-right: 20px;
+  }
+
+  .photo {
+    margin-right: 0;
+    margin-bottom: 20px;
+    height: auto;
+    background-image: unset !important;
+    background-size: auto;
+  }
+
+  .photo > img {
+    display: block;
+  }
+
+  .name {
+    margin-bottom: 20px;
+    padding-top: 0;
+    text-align: left;
+  }
+
+  .price {
+    padding-top: 0;
+    text-align: left;
+  }
+}
+
+#is-shop {
+  .relay {
+    @extend %shop-item-scroll;
+
+    display: none;
+  }
+}
+// アイテム 詳細 スクロール end
+
+// /shop/purchase_cart.html
+// ショッピングカート start
+%shop-cart {
+  & > h2 {
+    @include page-title;
+  }
+
+  & > ul {
+    display: block;
+    margin-top: 40px;
+    margin-bottom: 70px;
+  }
+
+  & > ul > li {
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $color-border;
+
+    &:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    @include media-max(sp) {
+      display: block;
+    }
+  }
+
+  .photo {
+    width: auto;
+    height: auto;
+    background-size: contain;
+    flex: unset;
+  }
+
+  .item {
+    flex: 0 0 60%;
+    width: unset;
+    margin-top: 0;
+    margin-right: 40px;
+
+    @include media-max(tab) {
+      max-width: 100%;
+      margin-left: unset;
+    }
+
+    @include media-max(sp) {
+      margin-right: 0;
+      margin-bottom: 40px;
+    }
+  }
+
+  .name {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 0;
+    line-height: 1.6;
+    font-size: rems(16px);
+    @include font(base, medium);
+  }
+
+  .number {
+    display: none;
+  }
+
+  .price {
+    padding: 0;
+    font-size: rems(14px);
+  }
+
+  .count {
+    flex: 1 0 0;
+    min-width: 0;
+    max-width: 100%;
+    justify-content: flex-end;
+
+    input[type="text"] {
+      width: auto;
+      max-width: 50px;
+      height: auto;
+      margin-right: 20px;
+      padding: 6px 15px;
+      background-color: $color-form;
+      border: none;
+      border-radius: 0;
+
+      @include media-max(tab) {
+        width: auto !important;
+      }
+    }
+  }
+
+  .update,
+  .remove {
+    flex: 0 0 auto;
+    padding: 9px 15px;
+    font-size: rems(14px);
+    line-height: 1;
+  }
+
+  .update {
+    margin-right: 5px;
+    border: 1px solid $color-border;
+  }
+
+  .remove {
+    color: white;
+    background-color: $color-negative;
+  }
+}
+
+#is-shop {
+  #sumcart {
+    @extend %shop-cart;
+    @include inner;
+
+    .photo {
+      display: none;
+    }
+  }
+}
+// ショッピングカート end
+
+// ショッピングカート合計 start
+%shop-cart-sum {
+  display: block;
+  padding: 30px 20px;
+  background-color: $color-form;
+
+  & > div {
+    display: block;
+    text-align: end;
+  }
+
+  // カート(数量)
+  & > div > div:nth-child(1) {
+    width: auto;
+    margin-bottom: 10px;
+  }
+
+  & > div > div:nth-child(2) {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  & > div > div .sum_count {
+    width: auto;
+    margin-bottom: 20px;
+    background: unset !important;
+    background-position: unset !important;
+    background-size: unset !important;
+    font-size: rems(24px) !important;
+    text-align: end;
+    text-indent: unset !important;
+    line-height: 1 !important;
+
+    &::before {
+      margin-right: 5px;
+      @include font-awesome("\f07a");
+    }
+  }
+
+  & > div > div .sum_price {
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+
+  & > div > div .sum_price > dt {
+    min-width: 0;
+    max-width: 100%;
+    color: $color-text;
+    font-size: rems(14px);
+    line-height: 1 !important;
+  }
+
+  & > div > div .sum_price > dd {
+    width: auto;
+    color: $color-price;
+    font-size: rems(24px);
+    text-align: left;
+    line-height: 1;
+  }
+
+  .deliv {
+    width: auto;
+    margin-bottom: 40px;
+    font-size: rems(14px);
+  }
+
+  p:not(.deliv) > a {
+    font-size: rems(14px);
+  }
+
+  .button {
+    margin-top: 40px;
+
+    @include media-max(sp) {
+      display: block;
+    }
+  }
+
+  .purchase,
+  .back {
+    width: auto;
+    min-width: 150px;
+    height: auto;
+    margin: 0;
+    padding: 10px 20px;
+    background: unset;
+    background-position: unset;
+    font-size: rems(16px);
+    @include font(base, medium);
+    text-indent: unset;
+  }
+
+  .purchase {
+    color: white;
+    background-color: $color-purchase;
+  }
+
+  .back {
+    margin-right: 10px;
+    color: white;
+    background-color: $color-negative;
+
+    @include media-max(sp) {
+      margin-top: 10px;
+      margin-right: 0;
+    }
+  }
+}
+
+#is-shop {
+  div.sum {
+    @extend %shop-cart-sum;
+  }
+}
+// ショッピングカート合計 end
+
+// 送料について start
+#is-shop {
+  .postage {
+    max-width: 700px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 30px 20px;
+    background-color: $color-form;
+  }
+}
+// 送料について end
+
+// /customer/purchase_entry.html?mode=purchase
+// ご注文者情報 start
+%shop-entry {
+  & > h2 {
+    @include page-title;
+  }
+
+  & > dl {
+    align-items: flex-start;
+    margin-top: 70px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $color-border;
+
+    &:last-of-type {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+  }
+
+  & > dl > dt {
+    flex: 0 0 25%;
+    min-width: 0;
+    max-width: 100%;
+    margin-right: 20px;
+    padding: 0;
+    @include font(base, medium);
+
+    @include media-max(sp) {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
+
+  & > dl > dd {
+    flex: 1 0 0;
+    width: auto;
+    padding: 0;
+  }
+
+  & > dl > dd > div {
+    display: block;
+  }
+
+  & > dl > dd > div > input {
+    width: 100% !important;
+    border: none;
+    border-radius: 0;
+
+    @include field;
+  }
+
+  .alert {
+    padding: 0;
+    background-color: unset;
+  }
+
+  .birthday {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: -10px;
+  }
+
+  .birthday > div {
+    display: flex;
+    align-items: flex-end;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+
+  .birthday > div > select {
+    width: unset !important;
+    margin-bottom: 0;
+    padding: 0;
+
+    @include field;
+  }
+
+  .birthday > div > input {
+    margin-bottom: 0;
+  }
+
+  .birthday > div > span {
+    margin-right: 0;
+  }
+
+  .ship_addr > div > select {
+    width: auto !important;
+    @include field;
+  }
+
+  .next {
+    width: auto;
+    margin: 0 auto;
+    margin-top: 70px;
+
+    @include shop-normal-button;
+  }
+}
+
+#is-shop {
+  #entry {
+    @extend %shop-entry;
+
+    max-width: 700px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+// ご注文者情報 end
+
+// https://testsample-demosite078.com/shop/purchase_payment.html
+// お支払方法 start
+%shop-payment {
+  & > h2 {
+    @include page-title;
+  }
+}
+
+#is-shop {
+  .purchase.payment {
+    @extend %shop-payment;
+    @include inner;
+  }
+}
+// お支払方法 end
+
+// 配送について start
+%shop-shipment {
+  & > h3 {
+    @include page-title;
+  }
+
+  & > button {
+    margin: 0;
+    margin-top: 70px;
+    margin-right: auto;
+    margin-left: auto;
+    @include shop-normal-button();
+  }
+}
+
+#is-shop {
+  .purchase.shipment {
+    @extend %shop-shipment;
+    @include inner;
+  }
+}
+// 配送について end
+
+// /shop/purchase_confirm.html
+// 注文内容確認 start
+%shop-confirm {
+  & > h2,
+  & > h3 {
+    @include page-title;
+  }
+
+  & > button {
+    margin: 0;
+    margin-top: 70px;
+    margin-right: auto;
+    margin-left: auto;
+    @include shop-normal-button();
+  }
+
+  & > dl {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $color-border;
+
+    &:last-of-type {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+  }
+
+  & > dl > dt {
+    display: block;
+    flex: 0 0 25%;
+    align-items: flex-start;
+    min-width: 0;
+    max-width: 100%;
+    justify-content: center;
+    padding: 0;
+    @include font(base, medium);
+    text-align: left;
+
+    @include media-max(sp) {
+      margin-bottom: 10px;
+    }
+  }
+
+  & > dl > dd {
+    flex: 1 0 0;
+    padding: 0;
+  }
+
+  .deliver_item > dd > ul > li {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed $color-border;
+
+    &:last-of-type {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+  }
+
+  .deliver_item .photo {
+    min-width: 0;
+    max-width: 0;
+  }
+
+  .deliver_item .item {
+    margin-top: 0;
+    margin-bottom: 10px;
+
+    @include media-max(tab) {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  .deliver_item .item .number {
+    display: none;
+  }
+
+  .deliver_item .price,
+  .deliver_item .count,
+  .deliver_item .subtotal {
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+
+    @include media-max(tab) {
+      padding-right: 0;
+      background: unset;
+      line-height: 1;
+    }
+  }
+
+  .deliver_item .price,
+  .deliver_item .count,
+  .deliver_item .subtotal {
+    font-size: rems(14px);
+  }
+
+  .deliver_item .count {
+    margin-right: 10px;
+  }
+
+  .deliver_item .subtotal > p {
+    @include font(base, medium);
+
+    &:before {
+      content: "=";
+      margin-right: 10px;
+    }
+  }
+
+  .sub_total {
+    border-top: none;
+  }
+
+  .sub_total .item {
+    width: auto;
+    margin-top: 0;
+  }
+
+  .sub_total > dd > ul > li {
+    justify-content: flex-end;
+  }
+
+  .sub_total > dd > ul > li > div {
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+
+    &:nth-child(4) {
+      margin-right: 20px;
+    }
+  }
+
+  .sub_total > dd > ul > li > div > p {
+    font-size: rems(16px);
+    @include font(base, bold);
+  }
+
+  // お支払いのご案内
+  .total > dd > div {
+    width: auto;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .total.amount {
+    border-top: none;
+  }
+
+  .total.amount > dd > div > p {
+    color: $color-price;
+  }
+
+  .edit_payment {
+    &:before {
+      content: "お支払方法の変更";
+      @include font(base, medium);
+    }
+  }
+}
+
+#is-shop {
+  .purchase.confirm {
+    @extend %shop-confirm;
+    @include inner;
+
+    .deliver_item .photo {
+      display: none;
+    }
+  }
+}
+// 注文内容確認 end
+
+// この内容で注文するボタン start
+%shop-accept-button {
+  margin-top: 70px;
+  padding: 0;
+  padding-top: 70px;
+  background: unset;
+  border-top: 1px solid $color-border;
+
+  .accept {
+    width: auto;
+    min-width: max-content;
+    height: auto;
+    padding: 15px 20px;
+    background: unset;
+    background-position: unset;
+    background-size: unset;
+    color: white;
+    background-color: $color-purchase;
+    @include font(base, medium);
+    font-size: rems(16px);
+    text-indent: unset;
+  }
+}
+
+#is-shop {
+  .purchase.accept {
+    @extend %shop-accept-button;
+    @include inner;
+  }
+}
+// この内容で注文するボタン end
+
+// /shop/purchase_complete.html
+// 購入完了 start
+%shop-complete {
+  & > h2 {
+    @include page-title;
+  }
+
+  & > dl {
+    margin-top: 0;
+  }
+
+  & > dl > dt {
+    display: block;
+    flex: 0 0 25%;
+    min-width: 0;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  & > dl > dd {
+    flex: 1 0 0;
+    width: auto;
+    padding: 0;
+  }
+
+  & > div {
+    margin-top: 20px;
+    padding: 30px 20px;
+    background-color: $color-form;
+  }
+
+  .movetop {
+    margin-left: auto;
+    @include shop-normal-button();
+  }
+}
+
+#is-shop {
+  .purchase.complete {
+    @extend %shop-complete;
+    @include inner;
+  }
+}
+// 購入完了 end

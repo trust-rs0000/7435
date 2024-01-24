@@ -1,0 +1,12 @@
+@use "../forward" as *;
+
+.label {
+  display: inline-block;
+  padding: 6px 20px;
+  color: $color-main;
+  font-size: rems(14px);
+  @include font(base, bold);
+  border: 1px solid $color-main;
+  border-radius: 100vh;
+  line-height: 1;
+}

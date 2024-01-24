@@ -1,0 +1,15 @@
+@use "../forward" as *;
+
+section > div[id*="c"]:not(.js-exclude-fadein),
+section > form > div[id*="c"] {
+  opacity: 0;
+  transform: translateY(100px);
+  transition-duration: 1s;
+  transition-property: opacity, transform;
+}
+
+section > div[id*="c"]:not(.js-exclude-fadein).js-fadein,
+section > form > div[id*="c"].js-fadein {
+  opacity: 1;
+  transform: translateY(0);
+}

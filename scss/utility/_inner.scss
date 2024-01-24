@@ -1,0 +1,61 @@
+@use "breakpoints" as *;
+@use "../setting/global" as *;
+
+$inners: (
+  600: 600px,
+  700: 700px,
+  800: 800px,
+  900: 900px,
+  1000: 1000px,
+  1100: 1100px,
+  1200: 1200px,
+  1300: 1300px,
+  1400: 1400px,
+  1500: 1500px,
+  1600: 1600px,
+  1700: 1700px,
+  1920: 1920px,
+);
+
+@mixin inner-fixed-max-bp1200() {
+  @include media-max(bp1200) {
+    max-width: $inner-size-bp1200;
+  }
+
+  @include media-max(bp1000) {
+    max-width: $inner-size-bp1000;
+  }
+
+  @include media-max(tab) {
+    max-width: $inner-size-tab;
+  }
+
+  @include media-max(sp) {
+    max-width: $inner-size-sp;
+    padding-right: $inner-padding-sp;
+    padding-left: $inner-padding-sp;
+  }
+}
+
+// 親のwidthはみ出して表示する。
+.inner-full {
+  margin-right: calc(50% - 50vw) !important;
+  margin-left: calc(50% - 50vw) !important;
+}
+
+// インナーサイズを設定する。
+@mixin inner($maxWidth, $padding: $inner-padding) {
+  max-width: calc($maxWidth + ($padding * 2));
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-right: $padding;
+  padding-left: $padding;
+
+  @include inner-fixed-max-bp1200();
+}
+
+@each $key, $inner in $inners {
+  .inner-#{$key} {
+    @include inner($inner);
+  }
+}

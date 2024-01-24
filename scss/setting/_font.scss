@@ -1,0 +1,68 @@
+// font-family
+$font-family: (
+  base: #{"Roboto",
+  "Noto Sans JP",
+  sans-serif},
+  main: #{"Roboto",
+  "Noto Sans JP",
+  sans-serif,
+  },
+  accent: #{"Saira Stencil One",
+  "Noto Sans JP",
+  sans-serif},
+);
+
+$font-weights: (
+  thin: 100,
+  light: 300,
+  regular: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+  black: 900,
+);
+
+// font-family
+// bodyに対するフォント
+$font-family-base: base;
+$font-weight-base: regular;
+
+$font-family-header-nav-link: accent;
+$font-weight-header-nav-link: regular;
+
+$font-family-footer-nav-link: base;
+$font-weight-footer-nav-link: medium;
+
+$font-family-dropdown-nav-link: base;
+$font-weight-dropdown-nav-link: bold;
+
+// font-size
+$font-size-h2: 28px;
+$font-size-h2-tab: 24px;
+
+$font-family-h2: base;
+$font-weight-h2: bold;
+
+$font-size-h3: 24px;
+$font-size-h3-tab: 21px;
+
+$font-family-h3: base;
+$font-weight-h3: bold;
+
+$font-size-blog-h1: 28px;
+$font-size-blog-h1-tab: 24px;
+
+$font-family-blog-h1: base;
+$font-weight-blog-h1: bold;
+
+$font-size-blog-h2: 24px;
+$font-size-blog-h2-tab: 20px;
+
+$font-family-blog-h2: base;
+$font-weight-blog-h2: bold;
+
+$font-size-blog-h3: 20px;
+$font-size-blog-h3-tab: 16px;
+
+$font-family-blog-h3: base;
+$font-weight-blog-h3: bold;

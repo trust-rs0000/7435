@@ -1,0 +1,71 @@
+@use "../forward" as *;
+
+.header {
+  width: 100%;
+  padding: 20px 40px;
+  background-color: $color-header-bg;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: $z-header;
+  transition: $transition-duration;
+
+  @include media-max(drawer) {
+    padding: 15px 20px;
+    background-color: $color-header-bg-drawer;
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+  }
+
+  &__contact {
+    margin-bottom: 30px;
+
+    @include media-max(drawer) {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.js-change-header-bg {
+  transition: $transition-duration;
+}
+
+.header-logo {
+  width: percentage(div(335, 1840));
+  max-width: 335px;
+  min-width: 200px;
+  margin-right: auto;
+
+  @include media-max(bp1700) {
+    width: percentage(div(275, 1840));
+  }
+}
+
+.header-contact {
+  display: flex;
+  justify-content: flex-end;
+
+  @include media-max(drawer) {
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+  }
+
+  & > * {
+    margin-right: 20px;
+
+    @include media-max(drawer) {
+      flex: 1 0 0;
+      margin-right: 1px;
+      padding: 16px 15px 15px;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

@@ -1,0 +1,53 @@
+@use "../forward" as *;
+
+h2 {
+  color: $color-main;
+  font-size: rems($font-size-h2);
+  @include font($font-family-h2, $font-weight-h2);
+
+  @include media-max(tab) {
+    font-size: rems($font-size-h2-tab);
+  }
+}
+
+h3 {
+  color: $color-main;
+  font-size: rems($font-size-h3);
+  @include font($font-family-h3, $font-weight-h3);
+
+  @include media-max(tab) {
+    font-size: rems($font-size-h3-tab);
+  }
+}
+
+.heading-subtitle {
+  & > article > * {
+    line-height: 1;
+  }
+
+  & > article > h2 {
+    margin-bottom: 15px;
+    color: $color-main;
+    font-size: rems(50px);
+    @include font(accent, regular);
+
+    @include media-max(tab) {
+      font-size: rems(45px);
+    }
+  }
+
+  & > article > div {
+    @include font(base, bold);
+  }
+}
+
+.heading-image-left {
+  display: flex;
+  align-items: center;
+
+  img {
+    width: auto !important;
+    margin-right: 9px;
+    vertical-align: middle;
+  }
+}

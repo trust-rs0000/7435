@@ -1,0 +1,23 @@
+@use "../setting/global" as *;
+
+@mixin media-max($breakpoint) {
+  $dimension: map-get(
+    $map: $breakpoints,
+    $key: $breakpoint,
+  );
+
+  @media (max-width: #{$dimension}) {
+    @content;
+  }
+}
+
+@mixin media-min($breakpoint) {
+  $dimension: map-get(
+    $map: $breakpoints,
+    $key: $breakpoint,
+  );
+
+  @media (min-width: #{$dimension}) {
+    @content;
+  }
+}

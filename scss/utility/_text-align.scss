@@ -1,0 +1,24 @@
+@use "./breakpoints" as *;
+@use "../setting/global" as *;
+
+@each $dimension, $breakpoint in $breakpoints {
+  $infix: if($breakpoint == 0px, null, -#{$dimension});
+}
+
+$aligns: (left, center, right);
+
+@each $align in $aligns {
+  @each $dimension, $breakpoint in $breakpoints {
+    $infix: if($breakpoint == 0px, null, -#{$dimension});
+
+    .text#{$infix}-#{$align} {
+      text-align: $align !important;
+
+      * {
+        @include media-min($dimension) {
+          text-align: $align !important;
+        }
+      }
+    }
+  }
+}

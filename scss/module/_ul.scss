@@ -1,0 +1,13 @@
+@use "../forward" as *;
+
+%ul-reset {
+  li {
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.ul {
+  @extend %ul-reset;
+}

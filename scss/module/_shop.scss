@@ -1,0 +1,90 @@
+@use "../forward" as *;
+
+%shop-reboot {
+  // /shopと同じクラス名なので、一旦リセット
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  .items {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+
+    & > article {
+      align-items: flex-start;
+      width: auto;
+      margin-bottom: 0;
+      margin-left: 0;
+
+      @include media-max(sp) {
+        margin-right: 0;
+      }
+    }
+    .photo {
+      width: 100%;
+      background-image: unset !important;
+
+      & > img {
+        display: block;
+      }
+    }
+
+    .name {
+      padding-top: 0;
+    }
+
+    .summary {
+      padding-top: 0;
+      text-align: left;
+    }
+
+    .price {
+      padding-top: 0;
+    }
+  }
+}
+
+.m-shop {
+  @extend %shop-reboot;
+
+  .items {
+    display: block !important;
+  }
+
+  .photo {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .name {
+    // display: none;
+  }
+
+  .price {
+    display: none;
+  }
+
+  .summary {
+    margin-bottom: 15px;
+  }
+
+  .slick-slide {
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 30px;
+    background-color: #f5f6fa;
+
+    & > button {
+      display: block;
+      max-width: 170px;
+      margin-right: auto;
+      margin-left: auto;
+      padding: 8px 20px;
+      color: white;
+      background-color: $color-accent;
+      border-radius: 8px;
+    }
+  }
+}

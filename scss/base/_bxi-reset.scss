@@ -1,0 +1,107 @@
+@use "../forward" as *;
+
+// bxiでid指定されているcssのリセット
+header#global_header {
+  min-width: 0 !important;
+
+  width: 100%;
+}
+
+#contents_wrap {
+  min-width: 0 !important;
+
+  width: 100%;
+}
+
+#contents {
+  // デザイン設定 > 基本設定 > サイズ構成 > 全体幅で指定
+
+  width: 100%;
+}
+
+#main {
+  // デザイン設定 > 基本設定 > サイズ構成 > メイン幅で指定
+  width: 100%;
+}
+
+#main #col_main {
+  float: none;
+  // デザイン設定 > 基本設定 > サイズ構成 > コンテンツ幅で指定
+
+  width: 100%;
+  max-width: $inner-size;
+  margin-right: auto;
+  margin-left: auto;
+
+  // サイドの余白(コンテンツが画面端にくっつかないようにするため)
+  padding-left: $inner-padding;
+  padding-right: $inner-padding;
+
+  @include inner-fixed-max-bp1200();
+
+  @include media-max(sp) {
+    min-width: 0;
+  }
+}
+
+#main #col_side1 {
+  // デザイン設定 > 基本設定 > 左メニューで指定
+}
+
+footer#global_footer {
+  min-width: 0;
+}
+
+// 以下、個人的リセット
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+}
+
+body *:not(table *, i) {
+  /* 
+        font-weightは<b>タグが機能しなくなるので指定しない。
+        line-heightは余計に高さが効いてしまうので指定しない。 => bxi.cssで効いてる可能性あり。
+    */
+  margin: 0;
+}
+
+i {
+  line-height: 1;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+body {
+  // a {
+  //   text-decoration: none;
+  // }
+
+  button {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+  }
+
+  b {
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  span {
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+  }
+}

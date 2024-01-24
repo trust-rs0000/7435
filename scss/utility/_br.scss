@@ -1,0 +1,9 @@
+@use "./breakpoints" as *;
+
+.br-sp {
+  display: none;
+
+  @include media-max(sp) {
+    display: block;
+  }
+}

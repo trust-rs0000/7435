@@ -1,0 +1,114 @@
+@use "../forward" as *;
+
+// dpdn = dropdown
+%dpdn-reset {
+  .dropdown {
+    &__lists {
+      list-style: none;
+    }
+  }
+}
+
+.dropdown {
+  @extend %dpdn-reset;
+  position: relative;
+
+  // hover時
+  @include media-min(drawer) {
+    &:hover {
+      .dropdown {
+        &__lists {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+  }
+
+  &__nav-link {
+    color: $color-header-nav-link;
+
+    @include media-max(drawer) {
+      color: $color-dropdown-nav-link-drawer;
+    }
+  }
+
+  &__wrapper {
+    padding: 20px;
+    background-color: $color-dropdown-bg;
+    box-shadow: 0 0 5px rgba(black, 0.1);
+
+    @include media-max(drawer) {
+      background-color: transparent;
+      padding: 0;
+      box-shadow: none;
+    }
+  }
+
+  &__lists {
+    width: 100%;
+    min-width: max-content;
+    padding-top: 20px;
+    height: auto;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    transition: $transition-duration;
+
+    @include media-max(drawer) {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid $color-dropdown-border;
+      transform: unset;
+      position: static;
+      transition: $transition-duration;
+    }
+  }
+
+  &__list {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    border-bottom: 1px solid $color-dropdown-border;
+
+    @include media-max(drawer) {
+      text-align: left;
+      border-bottom: none;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+  }
+
+  &__link {
+    @include font($font-family-dropdown-nav-link, $font-weight-dropdown-nav-link);
+    font-size: rems(14px);
+    text-decoration: none;
+
+    &:link,
+    &:visited {
+      color: $color-dropdown-nav-link;
+
+      @include media-max(drawer) {
+        color: $color-dropdown-nav-link-drawer;
+      }
+    }
+  }
+}
+
+// ドロワーオープン時
+.js-drawer-open .dropdown {
+  &__lists {
+    opacity: 1;
+    visibility: visible;
+  }
+}

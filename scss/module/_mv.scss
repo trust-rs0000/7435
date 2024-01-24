@@ -1,0 +1,123 @@
+@use "../forward" as *;
+
+.mv {
+  position: relative;
+  z-index: 0;
+  margin-top: $header-margin-top;
+
+  @include media-max(drawer) {
+    margin-top: $header-margin-top-drawer;
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 0;
+  }
+
+  &__title {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+
+    & > * {
+      color: white;
+    }
+  }
+}
+
+.mv-title {
+  @include media-max(sp) {
+    text-align: center;
+  }
+
+  &__main {
+    margin-bottom: 33px;
+    @include font(accent, regular);
+    font-size: rems(70px);
+    line-height: 1.2;
+
+    @include media-max(bp1400) {
+      font-size: rems(48px);
+    }
+
+    @include media-max(tab) {
+      font-size: rems(36px);
+    }
+  }
+
+  &__text {
+    @include font(base, bold);
+    font-size: rems(35px);
+    line-height: 1.2;
+
+    @include media-max(bp1400) {
+      font-size: rems(20px);
+    }
+
+    @include media-max(tab) {
+      font-size: rems(18px);
+    }
+
+    @include media-max(sp) {
+      line-height: 2;
+    }
+  }
+
+  &__mark {
+    margin-right: 10px;
+    margin-left: 10px;
+    color: $color-text;
+    background-color: $color-accent;
+    position: relative;
+    z-index: 0;
+
+    &:after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 3px;
+      background-image: url(/images/utility/pattern_stripe.png);
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 1;
+    }
+  }
+}
+
+.mv-slider {
+  &__list {
+    // 読み込み時、崩れを防ぐ
+    &:not(:first-child) {
+      display: none;
+    }
+
+    @at-root .slick-initialized {
+      .slider {
+        &__list {
+          &:not(:first-child) {
+            display: block;
+          }
+        }
+      }
+    }
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__picture {
+    display: block;
+    position: relative;
+    z-index: 0;
+  }
+
+  .slick-slide {
+    height: auto;
+  }
+}

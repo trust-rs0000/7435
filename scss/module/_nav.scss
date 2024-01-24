@@ -1,0 +1,141 @@
+@use "../forward" as *;
+
+%nav-reset {
+  .nav {
+    &__lists {
+      list-style: none;
+    }
+
+    &__link {
+      text-decoration: none;
+    }
+  }
+}
+
+.js-drawer-open {
+  overflow-y: hidden;
+}
+
+.nav {
+  @extend %nav-reset;
+  flex: 1 0 auto;
+
+  margin-right: percentage(div(85, 1840));
+  margin-left: percentage(div(40, 1840));
+
+  @include media-max(bp1700) {
+    margin-right: percentage(div(50, 1700));
+    margin-left: percentage(div(20, 1700));
+  }
+
+  @include media-max(drawer) {
+    width: 100%;
+    height: 100%;
+    margin-left: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    z-index: $z-drawer;
+    transition: $transition-duration;
+
+    @include scroll-bar();
+  }
+
+  @include media-max(drawer) {
+    width: 70%;
+    max-width: 280px;
+    margin-right: 0;
+    padding-right: 20px;
+    padding-left: 20px;
+    left: 0;
+    transform: translate(-100%, 0);
+  }
+
+  @include media-max(sp) {
+    width: 100%;
+  }
+
+  @at-root .js-drawer-open & {
+    transform: translate(0, 0);
+
+    @include media-max(drawer) {
+      background-color: $color-header-nav-bg;
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &__lists {
+    display: flex;
+    justify-content: flex-end;
+
+    @include media-max(drawer) {
+      display: block;
+      margin-top: 150px;
+      margin-bottom: 60px;
+    }
+  }
+
+  &__list {
+    flex: 0 0 auto;
+    margin-right: percentage(div(110, 948));
+    line-height: 1;
+
+    @include media-max(bp1700) {
+      margin-right: percentage(div(50, 904));
+    }
+
+    @include media-max(drawer) {
+      display: block;
+      margin-right: 0;
+      margin-bottom: 50px;
+      color: $color-text;
+      text-align: left;
+    }
+
+    &:last-child {
+      margin-right: 0;
+
+      @include media-max(drawer) {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__list.dropdown {
+    @include media-max(drawer) {
+      border-bottom: none;
+    }
+  }
+
+  &__link {
+    @include font($font-family-header-nav-link, $font-weight-header-nav-link);
+    font-size: rems(16px);
+    line-height: 1;
+
+    @include media-max(drawer) {
+      font-size: rems(18px);
+    }
+
+    &:after {
+      content: attr(data-subtitle);
+      display: block;
+      margin-top: 8px;
+      @include font($font-family-dropdown-nav-link, $font-weight-dropdown-nav-link);
+      font-size: rems(14px);
+      line-height: 1;
+    }
+
+    &:link,
+    &:visited {
+      color: $color-header-nav-link;
+
+      @include media-max(drawer) {
+        color: $color-header-nav-link-drawer;
+      }
+    }
+  }
+}

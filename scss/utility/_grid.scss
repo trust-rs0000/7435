@@ -1,0 +1,91 @@
+@use "sass:math" as *;
+@use "./breakpoints" as *;
+@use "../setting/global" as *;
+
+@mixin flex($gutter-x, $gutter-y, $col) {
+  flex: 0 0 calc((100% - (var($gutter-x)) * ($col - 1)) / $col);
+  margin-right: var(--gutter-x);
+  margin-bottom: var(--gutter-y);
+
+  &:nth-child(#{$col}n) {
+    margin-right: 0;
+  }
+
+  &:not(:nth-child(#{$col}n)) {
+    margin-right: var(--gutter-x);
+  }
+}
+
+@for $col from 1 through 12 {
+  @each $dimension, $breakpoint in $breakpoints {
+    $infix: if($breakpoint == 0px, null, -#{$dimension});
+
+    // フレックスボックス
+    .flexbox#{$infix}-#{$col} {
+      --gutter-x: 0px;
+      --gutter-y: 0px;
+
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: calc(var(--gutter-y) * -1);
+
+      @include media-min($dimension) {
+        & > * {
+          @include flex(--gutter-x, --gutter-y, $col);
+        }
+      }
+    }
+
+    // blog
+    .blog#{$infix}-#{$col} {
+      --gutter-x: 0px;
+      --gutter-y: 0px;
+
+      margin-bottom: calc(var(--gutter-y) * -1);
+
+      .blog_list {
+        flex-wrap: wrap;
+        flex-direction: row;
+      }
+
+      @include media-min($dimension) {
+        .blog_list > div {
+          @include flex(--gutter-x, --gutter-y, $col);
+        }
+      }
+    }
+
+    // sns
+    .sns#{$infix}-#{$col} {
+      --gutter-x: 0px;
+      --gutter-y: 0px;
+
+      margin-bottom: calc(var(--gutter-y) * -1);
+
+      .sns_list {
+        flex-wrap: wrap;
+        flex-direction: row;
+      }
+
+      @include media-min($dimension) {
+        .sns_list > div {
+          @include flex(--gutter-x, --gutter-y, $col);
+        }
+      }
+    }
+  }
+}
+
+// gap
+@for $col from 1 through 12 {
+  @each $dimension, $breakpoint in $breakpoints {
+    $infix: if($breakpoint == 0px, null, -#{$dimension});
+
+    .g#{$infix}-#{$col} {
+      @include media-min($dimension) {
+        --gutter-x: calc(10px * #{$col});
+        --gutter-y: calc(10px * #{$col});
+      }
+    }
+  }
+}

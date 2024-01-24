@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge,chrome=1"
+    />
+    <title>{#page_title} | タイトルを入力してください</title>
+    <meta
+      name="description"
+      content="{#description}"
+    />
+    <meta
+      name="keywords"
+      content="{#keyword}"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=yes"
+    />
+    <meta
+      name="format-detection"
+      content="telephone=no"
+    />
+    <link
+      href="css/bxi.css"
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+    />
+    <script
+      src="https://ajaxzip3.github.io/ajaxzip3.js"
+      charset="UTF-8"
+    ></script>
+    <!-- add personal -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"
+    ></script>
+    <!-- style -->
+    <link
+      rel="stylesheet"
+      href="css/common_style.css"
+    />
+    <link
+      rel="stylesheet"
+      href="css/style.css"
+    />
+    <!--fancybox-->
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"
+    />
+    <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <!-- slick -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <!-- fullcalendar -->
+    <!-- <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.css'>
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.js'></script> -->
+    <!-- js -->
+    <script
+      type="text/javascript"
+      src="js/function.js"
+    ></script>
+    <!-- font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <!-- googleFont -->
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&family=Saira+Stencil+One&display=swap"
+      rel="stylesheet"
+    />
+    <!-- gsap -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+      integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- add personal END -->
+  </head>
+
+  <body>
+    <header id="global_header">
+      <!-- start coding here -->
+      <div class="header">
+        <div class="header__inner">
+          <a
+            href="{#path}index.html"
+            class="header-logo"
+          >
+            <img
+              src="images/utility/header_logo.png"
+              class="header-logo__image"
+              alt=""
+            />
+          </a>
+          <!-- .logo -->
+          <div class="header__wrapper">
+            <div class="header-contact header__contact">
+              <a
+                href="tel:047-404-6305"
+                class="header-tel button-tel"
+              >
+                <i class="fa-solid fa-phone-volume"></i>
+                <span class="button-tel__text">047-404-6305</span>
+              </a>
+              <a
+                href="{#path}contact.html"
+                class="header-mail button-mail"
+              >
+                <i class="fa-solid fa-envelope"></i>
+                <span class="button-mail__text">お問い合わせ</span>
+              </a>
+            </div>
+            <!-- .contact -->
+            <nav class="nav header__nav">
+              <ul class="nav__lists">
+                <li class="nav__list">
+                  <a
+                    href="{#path}index.html"
+                    class="nav__link"
+                    data-subtitle="ホーム"
+                  >
+                    HOME
+                  </a>
+                </li>
+                <li class="nav__list dropdown">
+                  <a
+                    href="{#path}about.html"
+                    class="nav__link dropdown__nav-link"
+                    data-subtitle="事業内容"
+                  >
+                    SERVICE
+                  </a>
+                  <ul class="dropdown__lists">
+                    <div class="dropdown__wrapper">
+                      <li class="dropdown__list">
+                        <a
+                          href="{#path}about.html#about1"
+                          class="dropdown__link"
+                        >
+                          模擬負荷試験
+                        </a>
+                      </li>
+                      <li class="dropdown__list">
+                        <a
+                          href="{#path}about.html#about2"
+                          class="dropdown__link"
+                        >
+                          受変電設備定期点検
+                        </a>
+                      </li>
+                      <li class="dropdown__list">
+                        <a
+                          href="{#path}about.html#about3"
+                          class="dropdown__link"
+                        >
+                          電源供給業務
+                        </a>
+                      </li>
+                    </div>
+                  </ul>
+                </li>
+                <li class="nav__list">
+                  <a
+                    href="{#path}information.html"
+                    class="nav__link"
+                    data-subtitle="企業情報"
+                  >
+                    COMPANY
+                  </a>
+                </li>
+                <li class="nav__list">
+                  <a
+                    href="{#path}blog"
+                    class="nav__link"
+                    data-subtitle="作業実績"
+                  >
+                    WORK
+                  </a>
+                </li>
+                <li class="nav__list">
+                  <a
+                    href="{#path}recruit.html"
+                    class="nav__link"
+                    data-subtitle="求人情報"
+                  >
+                    RECRUIT
+                  </a>
+                </li>
+                <li class="nav__list">
+                  <a
+                    href="{#path}information.html#access"
+                    class="nav__link"
+                    data-subtitle="アクセス"
+                  >
+                    ACCESS
+                  </a>
+                </li>
+              </ul>
+            </nav>
+            <!-- .nav -->
+
+            <button
+              class="hamburger header__hamburger"
+              type="button"
+            >
+              <span class="line1 hamburger__line"></span>
+              <span class="line2 hamburger__line"></span>
+              <span class="line3 hamburger__line"></span>
+            </button>
+            <!-- .hamburger -->
+          </div>
+          <!-- .header__wrapper -->
+        </div>
+        <!-- .header__inner -->
+      </div>
+      <!-- .header -->
+    </header>
+    <!-- main start -->
+    <div id="contents_wrap">
+      <div id="contents">
+        <div id="main">
+          <div id="col_main">
+            <section>
+              <!-- <div id='c1' class='bxiでつけたクラス名'></div> -->
+              <!-- start coding here -->
+              <!-- </div> -->
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- main end -->
+    <footer id="global_footer">
+      <!-- start coding here -->
+      <div class="footer">
+        <div class="footer__inner inner-1200">
+          <div class="footer__wrapper">
+            <a
+              href="{#path}index.html"
+              class="footer-logo footer__logo"
+            >
+              <img
+                src="images/utility/header_logo.png"
+                class="header-logo__image"
+                alt=""
+              />
+            </a>
+            <!-- .logo -->
+            <p class="footer-address footer__address">
+              〒273-0018
+              <br />
+              千葉県船橋市栄町2-14-5
+            </p>
+          </div>
+          <div class="footer__wrapper">
+            <nav class="footer-nav footer__nav">
+              <ul class="footer-nav__lists">
+                <li class="footer-nav__list">
+                  <a
+                    href="{#path}index.html"
+                    class="footer-nav__link"
+                  >
+                    ホーム
+                  </a>
+                </li>
+                <li class="footer-nav__list dropdown">
+                  <a
+                    href="{#path}about.html"
+                    class="footer-nav__link dropdown__nav-link"
+                  >
+                    事業内容
+                  </a>
+                </li>
+                <li class="footer-nav__list">
+                  <a
+                    href="{#path}information.html"
+                    class="footer-nav__link"
+                  >
+                    企業情報
+                  </a>
+                </li>
+                <li class="footer-nav__list">
+                  <a
+                    href="{#path}blog"
+                    class="footer-nav__link"
+                  >
+                    作業実績
+                  </a>
+                </li>
+                <li class="footer-nav__list">
+                  <a
+                    href="{#path}recruit.html"
+                    class="footer-nav__link"
+                  >
+                    求人情報
+                  </a>
+                </li>
+                <li class="footer-nav__list">
+                  <a
+                    href="{#path}information.html#access"
+                    class="footer-nav__link"
+                  >
+                    アクセス
+                  </a>
+                </li>
+              </ul>
+            </nav>
+            <!-- .nav -->
+            <div class="footer-contact footer__contact">
+              <a
+                href="tel:047-404-6305"
+                class="footer-tel button-tel"
+              >
+                <i class="fa-solid fa-phone-volume"></i>
+                <span class="button-tel__text">047-404-6305</span>
+              </a>
+              <a
+                href="{#path}contact.html"
+                class="footer-mail button-mail"
+              >
+                <i class="fa-solid fa-envelope"></i>
+                <span class="button-mail__text">お問い合わせ</span>
+              </a>
+            </div>
+            <!-- .contact -->
+            <small class="copyright">{#copy}</small>
+          </div>
+        </div>
+      </div>
+      <!-- .footer -->
+    </footer>
+  </body>
+</html>
+
+<!-- mv -->
+<div class="mv">
+  <ul class="mv-slider">
+    <li class="mv-slider__list">
+      <picture class="mv-slider__picture">
+        <source
+          media="(min-width: 641px)"
+          srcset="images/mv/main_pc_1.jpg"
+          class="mv-slider__source"
+        />
+        <img
+          src="images/mv/main_1.jpg"
+          class="mv-slider__img"
+          alt=""
+        />
+      </picture>
+    </li>
+    <li class="mv-slider__list">
+      <picture class="mv-slider__picture">
+        <source
+          media="(min-width: 641px)"
+          srcset="images/mv/main_pc_2.jpg"
+          class="mv-slider__source"
+        />
+        <img
+          src="images/mv/main_2.jpg"
+          class="mv-slider__img"
+          alt=""
+        />
+      </picture>
+    </li>
+    <li class="mv-slider__list">
+      <picture class="mv-slider__picture">
+        <source
+          media="(min-width: 641px)"
+          srcset="images/mv/main_pc_3.jpg"
+          class="mv-slider__source"
+        />
+        <img
+          src="images/mv/main_3.jpg"
+          class="mv-slider__img"
+          alt=""
+        />
+      </picture>
+    </li>
+  </ul>
+</div>
+<!-- .slider -->

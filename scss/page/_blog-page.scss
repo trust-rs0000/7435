@@ -1,0 +1,515 @@
+@use "../forward" as *;
+
+// /blog/article.html
+// 全記事表示。カテゴリーページバージョンもある。
+
+// /blog/article.html?page=?????
+// 個別投稿ページ
+$selector-blog-article: 'article[id^="page"]';
+
+// /blog/search.html
+// 過去の記事から飛べるページ。カテゴリーページバージョンもある。
+
+// モジュール
+// カテゴリーラベル
+@mixin blog-category-label {
+  padding: 3px 5px 2px 5px;
+  background-color: $color-blog-category-label-bg;
+  font-size: rems(12px);
+  @include font(base, bold);
+  text-decoration: unset;
+
+  &:link,
+  &:visited {
+    color: $color-blog-category-label-text;
+  }
+}
+
+// reboot
+%blogpage-reboot {
+  @at-root {
+    header:nth-of-type(1) {
+      background: transparent;
+    }
+
+    // 全ページ共通
+    .blog {
+      .wrap {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 120px;
+        margin-bottom: 100px;
+        padding: 0;
+        background-color: transparent;
+        box-sizing: inherit;
+        @include inner(1200px);
+
+        &:after {
+          content: none;
+        }
+      }
+
+      // サイドバー
+      aside {
+        flex: 0 0 30%;
+        width: auto;
+        min-width: 0;
+        margin-right: 40px;
+        padding: 0;
+        overflow: unset;
+
+        @include media-max(sp) {
+          margin-right: 0;
+        }
+
+        & > nav {
+          padding: 0;
+          text-align: left;
+        }
+
+        & > nav > div {
+          color: $color-text;
+          margin-bottom: 15px;
+          padding-bottom: 5px;
+          border-bottom: 1px solid $color-border;
+          font-size: rems(16px);
+          line-height: 1.6;
+
+          &:nth-of-type(2) {
+            margin-top: 0;
+          }
+        }
+
+        // 過去の記事
+        & > nav > a {
+          padding-right: 0;
+          margin-top: 20px;
+        }
+
+        // カレンダー
+        #calendar {
+          margin: 0;
+          margin-bottom: 40px;
+        }
+
+        #form_calendar {
+          max-width: 100%;
+          min-width: 0;
+          box-shadow: none;
+          margin: 0;
+          background-color: transparent;
+          text-align: end;
+
+          .head {
+            margin-bottom: 10px;
+
+            span {
+              color: $color-text;
+            }
+          }
+
+          .head span:nth-of-type(1),
+          .head span:nth-of-type(5) {
+            width: unset;
+            font-size: 10px;
+          }
+
+          .head span:nth-of-type(2) {
+            left: 55px;
+
+            &:after {
+              content: ".";
+            }
+          }
+
+          .head span:nth-of-type(2),
+          .head span:nth-of-type(3) {
+            font-size: rems(14px);
+          }
+
+          .head span:nth-of-type(3) {
+            left: 100px;
+            transform: unset;
+          }
+
+          .head span:nth-of-type(4) {
+            display: none;
+          }
+
+          & > table {
+            margin-bottom: 0;
+            border-bottom: 1px solid $color-border;
+          }
+
+          & > table > thead > tr > th {
+            font-size: rems(8px);
+          }
+
+          & > table > tbody > tr > td {
+            border-top: 1px solid $color-border;
+            border-right: 1px solid $color-border;
+          }
+
+          & > table > tbody > tr > td > label {
+            font-size: rems(8px) !important;
+
+            @include media-max(sp) {
+              font-size: rems(10px) !important;
+            }
+          }
+
+          & > table > tbody > tr > td.blog > label {
+            height: unset;
+            line-height: unset;
+          }
+
+          & > table > tbody > tr > td:first-of-type {
+            background: $color-blog-calendar-holiday-bg;
+            border-left: 1px solid $color-border;
+          }
+
+          dl.open,
+          dl.close {
+            display: inline-flex;
+            margin-top: 10px;
+          }
+
+          dl.open > dt > label,
+          td.open {
+            background-color: $color-blog-calendar-open-bg;
+          }
+
+          dl.close > dt > label,
+          td.close {
+            background-color: $color-blog-calendar-close-bg;
+          }
+
+          td.other {
+            background-color: $color-blog-calendar-other-bg !important;
+          }
+
+          table > tbody > tr > td:hover {
+            background-color: $color-calendar-hover !important;
+          }
+
+          dl.open > dt > label,
+          dl.close > dt > label {
+            width: 18px;
+            height: 18px;
+            margin-right: 6px;
+          }
+
+          dl.open {
+            margin-right: 20px;
+          }
+
+          .open {
+            margin-top: 10px;
+          }
+        }
+
+        // 検索
+        #search {
+          margin-bottom: 50px;
+
+          & > form > button {
+            top: 50%;
+            right: rems(5px);
+            transform: translate(0, -50%);
+          }
+
+          & > form > input {
+            border-radius: 0;
+            border: 1px solid $color-border;
+          }
+
+          & > form > button {
+            background-size: 15px;
+          }
+        }
+
+        // 見出し：カテゴリー、過去記事
+        .category > li,
+        .pages > li {
+          margin-bottom: 10px;
+          padding: 0;
+          border-bottom: none;
+
+          &:first-child {
+            border-top: 0;
+          }
+        }
+
+        // カテゴリーラベル
+        .category {
+          margin-bottom: 60px;
+
+          & > li {
+            padding-bottom: 0;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+
+          & > li > a {
+            font-size: rems(14px);
+            text-decoration: unset;
+          }
+        }
+
+        // 最新記事、過去記事
+        .pages {
+          & > li {
+            margin-bottom: 10px;
+            text-align: left;
+          }
+
+          & > li > a {
+            font-size: rems(11px);
+            text-decoration: unset;
+          }
+
+          & > li > a > span {
+            font-size: rems(14px) !important;
+          }
+        }
+      }
+
+      // メインコンテンツ部分
+      #contents {
+        width: auto;
+        flex: 1 0 0;
+        min-width: 0 !important;
+        background-color: white;
+        overflow: unset;
+
+        @include media-max(sp) {
+          margin-bottom: 100px;
+        }
+
+        .date {
+          display: inline-block;
+          margin-bottom: 7px;
+          color: $color-text;
+          @include font(main, medium);
+          font-size: rems(14px);
+          line-height: 1;
+        }
+
+        article img {
+          margin: 0;
+        }
+      }
+
+      span[id*="TRANS_"] {
+        padding-right: 0;
+        overflow-wrap: break-word;
+      }
+    }
+
+    // /blog/article.html?page=?????
+    .blog #contents #{$selector-blog-article} {
+      padding: 0;
+
+      & > h1 {
+        margin-bottom: 50px;
+        padding-bottom: 0;
+        line-height: 1.6;
+        font-size: rems(16px);
+        color: initial;
+      }
+
+      // カテゴリーラベル
+      & > ul {
+        margin-bottom: 0;
+        margin-bottom: 30px;
+      }
+
+      & > ul > li {
+        margin-right: 10px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      & > ul > li > a {
+        margin-right: 0;
+        @include blog-category-label();
+      }
+
+      & > div > article {
+        padding: 0;
+      }
+
+      & > dl {
+        margin: 0;
+        margin-bottom: 20px;
+        padding: 20px;
+        border: none;
+        border-radius: 0;
+      }
+
+      & > dl > dt {
+        margin: 0;
+        padding: 0;
+        font-size: rems(16px);
+        line-height: 1.6;
+        border: none;
+        border-radius: 0;
+      }
+
+      & > dl > dt > div > a {
+        font-size: rems(16px);
+      }
+
+      & > dl > dt > div > a > .translate {
+        font-size: rems(16px);
+      }
+
+      .clearfix {
+        & > li > a {
+          margin-right: 0;
+          line-height: 1.6;
+        }
+      }
+
+      // フレックスボックスのarticleにも作用している。
+      // .boxにpaddingをつけたスタイルをする際は、削除
+      .box article {
+        padding: 0;
+      }
+
+      // h2に効いてるスタイル
+      & article h2 {
+        padding-bottom: 0;
+        line-height: 1.6;
+      }
+    }
+
+    // /blog/search.html
+    .blog #contents {
+      // 投稿リスト
+      & > dl {
+        margin: unset;
+        margin-bottom: 20px;
+        padding: unset;
+        padding-bottom: 20px;
+        border: unset;
+        border-bottom: 1px solid $color-border;
+        border-radius: unset;
+
+        &:last-child {
+          margin-bottom: 0;
+          padding-bottom: 0;
+          border-bottom: none;
+        }
+      }
+
+      & > dl > dt {
+        margin-bottom: 0;
+        font-size: unset;
+        line-height: 1.6;
+      }
+
+      // ブログタイトル
+      & > dl > dt > div > a {
+        text-decoration: none;
+      }
+
+      & > dl > dt > div > a > span {
+        @include font(base, bold);
+        font-size: rems(20px);
+      }
+
+      // カテゴリーラベル
+      & > dl > dd > ul {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 10px;
+        margin-bottom: -10px;
+      }
+
+      & > dl > dd > ul > li {
+        margin-right: 10px;
+        margin-bottom: 10px;
+        float: unset;
+      }
+
+      & > dl > dd > ul > li > a {
+        margin: unset;
+        line-height: 1;
+        @include blog-category-label();
+      }
+    }
+
+    // /blog/article.html?category=?????
+    .blog #contents #{$selector-blog-article} {
+      margin-bottom: 100px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+// カスタマイズ
+.blog {
+  @extend %blogpage-reboot;
+
+  // 共通
+  #contents {
+  }
+
+  // /blog/article.html?page=?????
+  #contents #{$selector-blog-article} {
+    & > h1 {
+      color: $color-text;
+      font-size: rems($font-size-blog-h1);
+      @include font($font-size-blog-h1, $font-weight-blog-h1);
+
+      @include media-max(tab) {
+        font-size: rems($font-size-blog-h1-tab);
+      }
+    }
+
+    & h2 {
+      color: $color-text;
+      font-size: rems($font-size-blog-h2);
+      @include font($font-size-blog-h2, $font-weight-blog-h2);
+
+      @include media-max(tab) {
+        font-size: rems($font-size-blog-h2-tab);
+      }
+    }
+
+    & h3 {
+      color: $color-text;
+      font-size: rems($font-size-blog-h3);
+      @include font($font-size-blog-h3, $font-weight-blog-h3);
+
+      @include media-max(tab) {
+        font-size: rems($font-size-blog-h3-tab);
+      }
+    }
+
+    // ブログ用見出し
+    .blog-heading-title {
+      & > article h2,
+      & > article h3 {
+        padding: 10px 20px;
+        background-color: $color-blog-heading-bg;
+      }
+    }
+  }
+
+  // カレンダー
+  #calendar {
+    dl.open {
+      // 営業日の色要らないかなと思ったので、非表示
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,353 @@
+@use "../forward" as *;
+
+.flex-links {
+  .box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow: visible !important;
+
+    & > div {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    & > div > a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      line-height: 1.6;
+    }
+  }
+}
+
+.flex-media {
+  $margin: 40px;
+
+  .box {
+    width: 100%;
+    margin-bottom: 60px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    & > article {
+      display: flex;
+      justify-content: center;
+
+      @include media-max(tab) {
+        display: block;
+      }
+    }
+
+    & > article > h3 {
+      display: none;
+    }
+
+    & > article > img {
+      width: calc(50% - $margin) !important;
+      margin-right: $margin;
+      object-fit: contain;
+
+      @include media-max(tab) {
+        width: 100% !important;
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+    }
+
+    & > article > div {
+      flex: 1 0 0;
+    }
+  }
+
+  &__label {
+    display: inline-block;
+    margin-bottom: 35px;
+    padding: 9px 16px;
+    color: white;
+    background-color: $color-custom-2;
+    @include font(base, bold);
+    font-size: rems(14px);
+
+    @include media-max(tab) {
+      margin-bottom: 20px;
+    }
+
+    &:after {
+      margin-left: 5px;
+      @include font-awesome("\f0eb");
+    }
+  }
+
+  &__title {
+    margin-bottom: 25px;
+    @include font(base, bold);
+  }
+}
+
+.flex-card {
+  --gutter-y: 80px;
+  justify-content: center;
+
+  .box {
+    & > article > img {
+      margin-bottom: 15px;
+    }
+
+    & > article > h3 {
+      margin-bottom: 5px;
+      color: $color-main;
+      font-size: rems(18px);
+      @include font(base, medium);
+      text-align: center;
+    }
+
+    & > article > div {
+      font-size: rems(14px);
+      line-height: 2;
+    }
+  }
+}
+
+.flex-slider {
+  display: block !important;
+
+  .box {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
+
+.flex-list {
+  .box {
+    margin-bottom: 5px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    & > div {
+      &:before {
+        @include font-awesome("\f024");
+        margin-right: 4px;
+        color: #b32929;
+      }
+    }
+  }
+}
+
+.flex-flow-row {
+  flex-wrap: nowrap !important;
+
+  @include media-max(tab) {
+    flex-direction: column !important;
+  }
+
+  .box {
+    display: flex;
+    width: 30%;
+    flex-direction: column;
+    padding: 30px 25px;
+    background-color: white;
+
+    @include media-max(tab) {
+      width: 100%;
+    }
+
+    &:nth-child(even) {
+      justify-content: center;
+      width: 5%;
+      padding: 0;
+      background-color: unset;
+      font-size: rems(24px);
+      text-align: center;
+
+      @include media-max(tab) {
+        width: 100%;
+        padding: 20px 0;
+        transform: rotate(90deg);
+      }
+    }
+
+    & > article {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      @include media-max(tab) {
+        align-items: center;
+      }
+    }
+
+    & > article > img {
+      margin-bottom: 20px;
+
+      @include media-max(tab) {
+        width: 200px !important;
+      }
+    }
+
+    & > article > h3 {
+      margin-bottom: 10px;
+      font-size: rems(22px);
+      @include font(base, medium);
+      text-align: center;
+
+      @include media-max(tab) {
+        font-size: rems(19px);
+      }
+    }
+
+    & > article > div {
+      font-size: rems(15px);
+    }
+  }
+}
+
+.flex-faq {
+  border: 1px solid black;
+
+  .box {
+    width: 100%;
+
+    &:last-child {
+      height: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.8s;
+    }
+
+    @at-root .js-accordion-open .box:last-child {
+      opacity: 1;
+      visibility: visible;
+      transition: 0.8s;
+    }
+
+    & > div {
+      display: flex;
+      align-items: center;
+    }
+
+    &:first-child > div {
+      padding: 15px 40px 15px 20px;
+      position: relative;
+      z-index: 0;
+      cursor: pointer;
+
+      &:after {
+        @include font-awesome("\2b");
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translate(0, -50%);
+        z-index: 1;
+        transition: 0.8s;
+      }
+    }
+
+    @at-root .js-accordion-open .box:first-child > div {
+      &:after {
+        transform: translate(0, -50%) rotate(-45deg);
+        transition: 0.8s;
+      }
+    }
+
+    &:last-child > div {
+      font-size: rems(14px);
+      padding: 15px 20px;
+      border-top: 1px dashed black;
+    }
+
+    & > div {
+      flex: 1 0 0;
+    }
+  }
+}
+
+.flex-cta {
+  .box {
+    & > article {
+      line-height: 1;
+      position: relative;
+      z-index: 0;
+
+      &:before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: rgba($color-main, 0.5);
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+    }
+
+    & > article > h3 {
+      display: none;
+    }
+
+    & > article > div {
+      width: 100%;
+      padding: 0 20px;
+      color: white;
+      @include font(base, medium);
+      font-size: rems(30px);
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      pointer-events: none;
+
+      @include media-max(bp1200) {
+        font-size: rems(24px);
+      }
+
+      @include media-max(sp) {
+        font-size: rems(18px);
+      }
+
+      & > i {
+        margin-right: 15px;
+      }
+    }
+  }
+}
+
+.flex-voice {
+  .box {
+    padding: 30px 20px;
+    background-color: white;
+  }
+
+  &__title {
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    font-size: rems(18px);
+    font-weight: bold;
+    border-bottom: 1px solid $color-main;
+  }
+
+  &__text {
+    margin-bottom: 10px;
+  }
+
+  &__user {
+    color: $color-accent;
+    font-size: rems(14px);
+    text-align: right;
+
+    &:before {
+      margin-right: 7px;
+      @include font-awesome("\f007");
+    }
+  }
+}

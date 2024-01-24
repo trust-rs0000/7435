@@ -1,0 +1,16 @@
+# guide・開発共通
+.ht*
+.vscode
+*.json
+!package.json
+node_modules
+
+# guide用
+
+# 開発用
+*.html
+!index.html
+!dtd.html
+*.txt
+guide
+webpack.config.js

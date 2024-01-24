@@ -1,0 +1,48 @@
+@use "../forward" as *;
+
+html {
+  font-size: $font-size-base;
+
+  @include media-max(tab) {
+    font-size: $font-size-base-tab;
+  }
+}
+
+body {
+  color: $color-text;
+  font-size: inherit;
+  @include font($font-family-base, $font-weight-base);
+  letter-spacing: $letter-spacing;
+}
+
+body *:not(table *, i) {
+  /* 
+        font-weightは<b>タグが機能しなくなるので指定しない。
+        line-heightは余計に高さが効いてしまうので指定しない。 => bxi.cssで効いてる可能性あり。
+    */
+}
+
+img {
+  vertical-align: middle;
+}
+
+img.imgL,
+img.imgC,
+img.imgR {
+  max-width: 100% !important;
+}
+
+a {
+  transition: $transition-duration;
+
+  &:hover {
+    opacity: 0.7;
+    transition: $transition-duration;
+  }
+}
+
+input,
+textarea,
+select {
+  @include font(base, regular);
+}

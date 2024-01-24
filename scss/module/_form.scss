@@ -1,0 +1,294 @@
+@use "../forward" as *;
+
+%form-reboot {
+  & > dl {
+    margin-bottom: 40px;
+
+    &:last-of-type > dt,
+    &:last-of-type > dd {
+      border: none;
+    }
+  }
+
+  & > dl > dt,
+  & > dl > dd {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+  }
+
+  & > dl > dt {
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    background-color: transparent;
+    @include font(base, bold);
+  }
+
+  & > dl > dt > label {
+    font-size: rems(10px);
+    color: $color-warn;
+  }
+
+  & > dl > dd > input {
+    padding: 10px;
+    font-size: rems(16px);
+    border: 1px solid $color-form;
+    border-radius: 0;
+  }
+
+  & > dl > dd > div {
+    &:first-child {
+      margin-bottom: 10px;
+    }
+  }
+
+  .date {
+    display: block;
+    flex-wrap: wrap;
+
+    .date {
+      display: flex;
+    }
+
+    & > div {
+      align-items: center;
+      margin-bottom: 10px;
+      margin-right: 0;
+      float: none;
+    }
+
+    & > div:last-of-type > select {
+      margin-bottom: 0;
+    }
+
+    & > div > input {
+      margin-bottom: 0;
+      padding: 0;
+      font-size: rems(16px);
+      text-align: left;
+      border: 1px solid $color-form;
+      border-radius: 0;
+    }
+
+    & > div > select {
+      margin-bottom: 0;
+      font-size: rems(16px);
+      border: 1px solid $color-form;
+      border-radius: 0;
+    }
+
+    & > div > span {
+      margin-right: 0;
+      margin-left: 0;
+      font-size: rems(16px);
+      line-height: 1;
+    }
+  }
+
+  .select {
+    & > select {
+      border: 1px solid $color-form;
+      border-radius: 0;
+    }
+  }
+
+  .checkbox {
+    .checkbox {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    & > label {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    & > label > input {
+      margin: 0 !important;
+      margin-right: 5px !important;
+    }
+  }
+
+  .email {
+    & > div > input {
+      margin-bottom: 0;
+      padding: 10px;
+      font-size: rems(16px);
+      border: 1px solid $color-form;
+      border-radius: 0;
+    }
+  }
+
+  .addr {
+    & > div {
+      &:first-child {
+        align-items: center;
+      }
+
+      &:nth-child(2) {
+        & > select {
+          margin-bottom: 0;
+          border: 1px solid $color-form;
+          border-radius: 0;
+        }
+      }
+    }
+
+    & > div > span {
+      margin-right: 10px;
+      line-height: 1;
+    }
+
+    & > div > input {
+      margin-bottom: 0;
+      font-size: rems(16px);
+      border: 1px solid $color-form;
+      border-radius: 0;
+    }
+  }
+
+  .number {
+    & > input {
+      font-size: rems(16px);
+      border: 1px solid $color-form;
+      border-radius: 0;
+    }
+  }
+
+  .textarea {
+    & > textarea {
+      min-height: 100px;
+      padding: 10px;
+      font-size: rems(16px);
+      border: 1px solid $color-form;
+      border-radius: 0;
+    }
+  }
+
+  .file {
+    border-top: none !important;
+
+    & > dt {
+      display: flex !important;
+      margin-bottom: 10px;
+      padding-top: 0 !important;
+      background: transparent !important;
+      font-size: rems(16px);
+    }
+
+    & > dd > label {
+      border: 1px solid $color-form;
+      border-radius: 0;
+      padding-bottom: unset;
+      background-color: $color-main;
+      right: 0;
+    }
+
+    .drop {
+      margin-bottom: 0;
+      border: 1px dotted $color-form;
+    }
+  }
+}
+
+.form.form_wrap {
+  @extend %form-reboot;
+}
+
+// formを使用したページ限定
+// ※は必須項目
+#TRANS_ANNOT {
+  color: $color-warn;
+}
+
+// フォーム使用したときに上に出てくるゴミデータ
+h2.mail.title {
+  display: none;
+}
+
+section form p.annot {
+  margin: 0;
+  margin-bottom: 40px;
+  color: $color-warn;
+}
+
+// 確認ページ(入力不足)
+section div.form_wrap.error {
+  margin-top: 100px;
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: $color-warn;
+
+  & > p {
+    padding: 0;
+    color: white;
+  }
+}
+
+// 確認ページ(確認ページ)
+section div.form_wrap.confirm {
+  margin-top: 100px;
+}
+
+// ボタン
+.submit {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 0;
+  margin-bottom: 0;
+
+  @include media-max(sp) {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  button {
+    width: 100%;
+    flex: 1 0 0;
+    margin-top: 0;
+    margin-right: 20px;
+    margin-bottom: 60px;
+
+    @include media-max(sp) {
+      margin-top: 0;
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+%bt-reboot {
+  padding: 10px;
+  @include font(base, medium);
+  border: 1px solid $color-main;
+  border-radius: 0;
+  background: none;
+  text-indent: 0;
+}
+
+.bt_confirm,
+.bt_back,
+.bt_send {
+  @extend %bt-reboot;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 300px;
+  background-color: $color-main;
+}
+
+.bt_back,
+.bt_confirm,
+.bt_send {
+  color: white;
+}

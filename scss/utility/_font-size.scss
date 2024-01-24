@@ -1,0 +1,17 @@
+@use "sass:math" as *;
+
+// 単位を消す ex.16px => 16 start
+@function strip-unit($number) {
+  @if type-of($number) == "number" and not unitless($number) {
+    @return div($number, ($number * 0 + 1));
+  }
+
+  @return $number;
+}
+
+// pxをremに変換
+// @param 変換する数値(px)
+// @param 分母の数値(px)
+@function rems($size, $baseSize: 16px) {
+  @return div(strip-unit($size), strip-unit($baseSize)) * 1rem;
+}

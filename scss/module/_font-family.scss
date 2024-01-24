@@ -1,0 +1,25 @@
+@use "../forward" as *;
+
+.font-main {
+  @include font(main, regular);
+}
+
+.font-accent {
+  @include font(accent, regular);
+}
+
+.font-weight-bold {
+  font-weight: 700;
+
+  * {
+    font-weight: 700;
+  }
+}
+
+.font-weight-black {
+  font-weight: 900;
+
+  * {
+    font-weight: 700;
+  }
+}
